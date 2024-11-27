@@ -24,6 +24,7 @@ async def save_bus_location(bus_location: BusLocationCreate):
 async def get_all_locations():
     return await BusLocation.find().project(BusLocationQuery).to_list()
 
+
 async def get_buses_from_route(company_id: int, route_id: int, latitude: float, longitude: float, delay_in_min: int, max_distance_in_km: int = 1):
     time_delay = datetime.now() - timedelta(minutes=delay_in_min)
     print(time_delay)

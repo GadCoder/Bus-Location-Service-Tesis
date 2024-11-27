@@ -31,6 +31,10 @@ class BusLocationQuery(BaseModel):
     latitude: float
     stop_name: str | None
     timestamp: datetime
+
+    @property
+    def distance_from_user(self):
+        return 1
     class Settings:
         projection = {
             "plate": "$bus.plate",
