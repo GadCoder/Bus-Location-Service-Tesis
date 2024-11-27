@@ -1,5 +1,4 @@
 import uuid
-from beanie import Indexed
 from pydantic import BaseModel
 
 class Bus(BaseModel):

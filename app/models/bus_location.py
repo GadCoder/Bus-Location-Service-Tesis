@@ -10,6 +10,7 @@ from app.models.location import Location
 class BusLocation(Document):
     bus: Bus
     coordinates: Location
+    stop_name: str | None
     timestamp: datetime = datetime.now()
 
 

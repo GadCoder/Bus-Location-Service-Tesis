@@ -11,6 +11,7 @@ from app.models.location import Location
 class BusLocationBase(BaseModel):
     bus: Bus
     coordinates: Location
+    stop_name: str | None
 
 
 
@@ -24,18 +25,20 @@ class BusLocationShow(BusLocationBase):
 
 
 class BusLocationQuery(BaseModel):
-    bus_identifier: uuid.UUID
     plate: str
-    latitude: float
+    bus_identifier: uuid.UUID
     longitude: float
+    latitude: float
+    stop_name: str | None
     timestamp: datetime
     class Settings:
         projection = {
-            "bus_identifier": "$bus.bus_identifier",
             "plate": "$bus.plate",
-            "timestamp": 1,
-            "latitude": {"$arrayElemAt": ["$coordinates.coordinates", 1]},
+            "bus_identifier": "$bus.bus_identifier",
             "longitude": {"$arrayElemAt": ["$coordinates.coordinates", 0]},
+            "latitude": {"$arrayElemAt": ["$coordinates.coordinates", 1]},
+            "stop_name": 1,
+            "timestamp": 1,
         }
 
 

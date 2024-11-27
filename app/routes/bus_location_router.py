@@ -9,7 +9,7 @@ from app.repository.bus_location import save_bus_location, get_buses_from_route,
 router = APIRouter(prefix="/bus-location", tags=["Bus Location"])
 
 
-@router.post("/create/", response_model=BusLocationShow)
+@router.post("/update/", response_model=BusLocationShow)
 async def register_bus_location(bus_location: BusLocationCreate):
     return await save_bus_location(bus_location=bus_location)
 
@@ -27,6 +27,6 @@ async def get_nearest_buses_from_route(
         delay_in_min=delay_in_min
     )
 
-@router.get("/get-all-buses-locations/", response_model=List[BusLocationShow])
+@router.get("/get-all-buses-locations/", response_model=List[BusLocationQuery])
 async def get_all_buses_locations():
     return await get_all_locations()

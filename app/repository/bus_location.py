@@ -15,13 +15,14 @@ async def save_bus_location(bus_location: BusLocationCreate):
     current_time = datetime.now()
     await bus_in_db.set({
             BusLocation.coordinates: bus_location.coordinates,
-            BusLocation.timestamp: current_time
+            BusLocation.timestamp: current_time,
+            BusLocation.stop_name: bus_location.stop_name
         }
     )
     return bus_in_db
 
 async def get_all_locations():
-    return await BusLocation.find().to_list()
+    return await BusLocation.find().project(BusLocationQuery).to_list()
 
 async def get_buses_from_route(company_id: int, route_id: int, latitude: float, longitude: float, delay_in_min: int, max_distance_in_km: int = 1):
     time_delay = datetime.now() - timedelta(minutes=delay_in_min)
