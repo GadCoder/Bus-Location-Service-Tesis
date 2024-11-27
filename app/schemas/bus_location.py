@@ -1,18 +1,16 @@
 import uuid
 from datetime import datetime
-
+from typing import Optional
 from pydantic import BaseModel
 
 from app.models.bus import Bus
 from app.models.location import Location
 
 
-
 class BusLocationBase(BaseModel):
     bus: Bus
     coordinates: Location
     stop_name: str | None
-
 
 
 class BusLocationCreate(BusLocationBase):
@@ -31,10 +29,8 @@ class BusLocationQuery(BaseModel):
     latitude: float
     stop_name: str | None
     timestamp: datetime
+    distance_from_user: Optional[float] = None
 
-    @property
-    def distance_from_user(self):
-        return 1
     class Settings:
         projection = {
             "plate": "$bus.plate",
@@ -43,8 +39,5 @@ class BusLocationQuery(BaseModel):
             "latitude": {"$arrayElemAt": ["$coordinates.coordinates", 1]},
             "stop_name": 1,
             "timestamp": 1,
+            "distance_from_user": 1,
         }
-
-
-
-
